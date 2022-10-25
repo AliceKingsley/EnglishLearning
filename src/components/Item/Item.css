@@ -1,0 +1,12 @@
+.row {
+    height: 50px;
+}
+
+.cell {
+    border: 1px solid grey;
+    width: 260px;
+}
+
+.cell__number {
+    width: 80px;
+}

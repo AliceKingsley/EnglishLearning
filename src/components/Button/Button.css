@@ -1,0 +1,52 @@
+.button {
+    width: 50px;
+    height: 40px;
+    border-radius: 20px;
+    margin-left: 20px;
+}
+
+.button:hover {
+    cursor: pointer;
+}
+
+.button__icon-style {
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.button_orange {
+    background-color: orange;
+    background-image: url('./icon-edit.svg');
+}
+
+.button_orange:hover {
+    background-color: darkorange;
+}
+
+.button_red {
+    background-color: lightcoral;
+    background-image: url('./icon-trash.svg');
+}
+
+.button_red:hover {
+    background-color: red;
+}
+
+.button_green {
+    background-color: green;
+    background-image: url('./icon-save.svg');
+}
+
+.button_green:hover {
+    background-color: darkgreen;
+}
+
+.button_yellow {
+    background-color: yellow;
+    background-image: url('./icon-cancel.svg');
+}
+
+.button_yellow:hover {
+    background-color: darkgoldenrod;
+}

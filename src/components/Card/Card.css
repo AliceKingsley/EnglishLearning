@@ -1,0 +1,15 @@
+.card {
+    border: 1px solid blue;
+    background-color: var(--background-card);
+    color: var(--color-card);
+    border-radius: 10%;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.card:hover {
+    background-color: var(--hover-background-card);
+}

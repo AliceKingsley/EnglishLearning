@@ -1,0 +1,16 @@
+:root {
+    --main-color: black;
+    --main-background-color: lightblue;
+    --input-border: #EAEBED;
+    --background-card: grey;
+    --color-card: darkblue;
+    --hover-background-card: lightgrey;
+}
+
+body {
+    font-size: 14px;
+}
+
+.card_size {
+    font-size: 20px;
+}
