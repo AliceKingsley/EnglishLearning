@@ -8,8 +8,17 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
 .card:hover {
     background-color: var(--hover-background-card);
+}
+
+.card-button {
+    width: 150px;
+    height: 35px;
+    border-radius: 15px;
+    background-color: cadetblue;
+    border: none;
 }
