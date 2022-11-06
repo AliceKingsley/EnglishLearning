@@ -4,9 +4,7 @@ import '../../styles.css';
 import { useState } from 'react';
 
 export default function Card(props) {
-// тестовая карточка
-
-    const {english, transcription, russian, tags} = props.data[0];
+    const {english, transcription, russian, tags} = props.data;
 
     const [isPressed, setIsPressed] = useState(0);
 

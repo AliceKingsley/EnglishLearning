@@ -1,5 +1,5 @@
 import './App.css';
-import Card from './components/Card/Card';
+import SliderCards from './components/SliderCards/SliderCards';
 // import Input from './components/Input/Input';
 import List from './components/List/List';
 
@@ -188,12 +188,11 @@ const dataArr = [{
 }];
 
 function App() {
-	// Card тут временно для теста, позже добавится CardList
-
 	return (
     <div className="App">
-		<Card data={dataArr} /> 
-    	<List data={dataArr} />
+		<SliderCards data={dataArr} startIndex={5} />
+		<br />
+		<List data={dataArr} />
     </div>
 );
 }
