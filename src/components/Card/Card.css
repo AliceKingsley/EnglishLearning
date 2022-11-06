@@ -1,4 +1,10 @@
-.card {
+@property --rotate {
+    syntax: "<angle>";
+    initial-value: 132deg;
+    inherits: false;
+}
+
+/* .card {
     border: 1px solid blue;
     background-color: var(--background-card);
     color: var(--color-card);
@@ -13,12 +19,73 @@
 
 .card:hover {
     background-color: var(--hover-background-card);
-}
+} */
 
 .card-button {
     width: 150px;
-    height: 35px;
+    height: 33.5px;
     border-radius: 15px;
-    background-color: cadetblue;
+    background-color: #5ddcff;
     border: none;
+    margin-top: 21px;
+    margin-bottom: 21px;
+}
+
+
+
+.card {
+    background: #191c29;
+    width: var(--card-width);
+    height: var(--card-height);
+    padding: 3px;
+    position: relative;
+    border-radius: 6px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    display: flex;
+    font-size: 1.5em;
+    color: rgb(88 199 250 / 100%);
+    cursor: pointer;
+    font-family: cursive;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.card:hover {
+    color: rgb(179, 221, 240);
+    background-color: #1a2246;
+    z-index: 1;
+    transition: color 1s;
+}
+
+.card::before {
+    content: "";
+    width: 104%;
+    height: 102%;
+    border-radius: 8px;
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    position: absolute;
+    z-index: -1;
+    top: -1%;
+    left: -2%;
+}
+
+.card::after {
+    position: absolute;
+    content: "";
+    top: calc(var(--card-height) / 6);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    height: 100%;
+    width: 100%;
+    margin: 0 auto;
+    transform: scale(0.8);
+    filter: blur(calc(var(--card-height) / 6));
+    background-image: linear-gradient(var(--rotate), #5ddcff, #3c67e3 43%, #4e00c2);
+    opacity: 1;
+    transition: opacity .5s;
 }

@@ -192,6 +192,7 @@ function App() {
     <div className="App">
 		<SliderCards data={dataArr} startIndex={5} />
 		<br />
+		<br />
 		<List data={dataArr} />
     </div>
 );

@@ -1,4 +1,32 @@
 .slider {
     display: flex;
     justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.nav {
+    margin-top: 100px;
+    color: black;
+    font-size: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    cursor: pointer;
+    user-select: none;
+    background: unset;
+    border: unset;
+}
+
+.left {
+    transform: translateX(-100%) translatey(-50%);
+}
+
+.left:hover, .right:hover {
+    color: #4e00c2;
+}
+
+.right {
+    transform: translateX(100%) translatey(-50%);
 }

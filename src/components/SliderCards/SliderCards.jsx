@@ -3,6 +3,7 @@ import './SliderCards.css';
 import '../../styles.css';
 import Card from '../Card/Card';
 import { useState } from 'react';
+import {TiChevronLeftOutline, TiChevronRightOutline} from 'https://cdn.skypack.dev/react-icons/ti';
 
 export default function SliderCards(props) {
 
@@ -38,12 +39,12 @@ export default function SliderCards(props) {
             {
                 (index >= data.length || index < 0) ? "Конец игры" : (
                     <div className='slider'>
-                        <button onClick={LeftButtonClick}>Стрелка влево</button>
+                        <button className='nav left' onClick={LeftButtonClick}><TiChevronLeftOutline /></button>
                         <div>
                             <Card data={data[index]} />
                             <p>{index + 1}/{data.length}</p>
                         </div>
-                        <button onClick={RightButtonClick}>Стрелка вправо</button>
+                        <button className='nav right' onClick={RightButtonClick}><TiChevronRightOutline /></button>
                     </div>
                 )
             }
