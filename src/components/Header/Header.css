@@ -1,0 +1,35 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    background-color: rgb(179, 221, 240);
+    margin-bottom: 5%;
+}
+
+.header-logo {
+    width: 120px;
+    height: 120px;
+}
+
+.header-nav {
+    align-self: center;
+}
+
+.header-nav_link {
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 30px;
+    color: black;
+    margin-left: 10%;
+}
+
+.header-nav_link:hover {
+    color: blue;
+}
+
+.header-nav_link:active {
+    text-decoration: underline;
+}

@@ -8,23 +8,6 @@ export default function List(props) {
     let data = props.data;
 
     const [isEditable, setIsEditable] =useState(0);
-    
-    let items = [];
-    for (let i = 0; i < data.length; i++) {
-        const elem = data[i];
-        items.push(<Item 
-                        key={i} 
-                        number={i + 1} 
-                        english={elem.english} 
-                        russian={elem.russian} 
-                        transcription={elem.transcription} 
-                        tags={elem.tags} 
-                        isEditable={isEditable === i + 1} 
-                        onEditButtonClick={setIsEditable}
-                        onSaveButtonClick={setIsEditable}
-                        onCancelButtonClick={setIsEditable}
-                    />);
-    }
 
     return (
         <React.Fragment>
@@ -40,7 +23,24 @@ export default function List(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {items}
+                    {
+                        data.map((elem, index) => {
+                            return (
+                                <Item 
+                                    key={index} 
+                                    number={index + 1} 
+                                    english={elem.english} 
+                                    russian={elem.russian} 
+                                    transcription={elem.transcription} 
+                                    tags={elem.tags} 
+                                    isEditable={isEditable === index + 1} 
+                                    onEditButtonClick={setIsEditable}
+                                    onSaveButtonClick={setIsEditable}
+                                    onCancelButtonClick={setIsEditable}
+                                />
+                            )
+                        })
+                    }
                 </tbody>
             </table>
         </React.Fragment>

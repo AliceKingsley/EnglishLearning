@@ -17,11 +17,11 @@ export default function SliderCards(props) {
         );
     }
 
-    const LeftButtonClick = () => {
+    const leftButtonClick = () => {
         setIndex( newCount => newCount - 1);
     }
 
-    const RightButtonClick = () => {
+    const rightButtonClick = () => {
         setIndex( newIndex => newIndex + 1);
     }
 
@@ -39,12 +39,12 @@ export default function SliderCards(props) {
             {
                 (index >= data.length || index < 0) ? "Конец игры" : (
                     <div className='slider'>
-                        <button className='nav left' onClick={LeftButtonClick}><TiChevronLeftOutline /></button>
+                        <button className='nav left' onClick={leftButtonClick}><TiChevronLeftOutline /></button>
                         <div>
                             <Card data={data[index]} />
                             <p>{index + 1}/{data.length}</p>
                         </div>
-                        <button className='nav right' onClick={RightButtonClick}><TiChevronRightOutline /></button>
+                        <button className='nav right' onClick={rightButtonClick}><TiChevronRightOutline /></button>
                     </div>
                 )
             }
