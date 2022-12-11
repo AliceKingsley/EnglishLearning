@@ -89,3 +89,7 @@
     opacity: 1;
     transition: opacity .5s;
 }
+
+.card-button:focus {
+    outline: 2px solid #3c67e3;
+}

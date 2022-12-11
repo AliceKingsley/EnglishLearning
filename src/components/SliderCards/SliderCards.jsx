@@ -11,6 +11,7 @@ export default function SliderCards(props) {
     const start = startIndex || 0;
 
     const [index, setIndex] = useState(start);
+    const [count, setCount] = useState(0);
 
     if (!data || data.length === 0) {
         return (<div>Не удалось загрузить слова. Попробуйте позже</div>
@@ -25,29 +26,25 @@ export default function SliderCards(props) {
         setIndex( newIndex => newIndex + 1);
     }
 
+    const onChangeCount = () => {
+        setCount( count => count + 1);
+    }
+
     return (
         <React.Fragment>
-            {/* <div className='slider'>
-                <button onClick={LeftButtonClick}>Стрелка влево</button>
-                <div>
-                    <Card data={data[index]} />
-                    <p>{index + 1}/{data.length}</p>
-                </div>
-                <button onClick={RightButtonClick}>Стрелка вправо</button>
-            </div> */}
-
             {
                 (index >= data.length || index < 0) ? "Конец игры" : (
                     <div className='slider'>
                         <button className='nav left' onClick={leftButtonClick}><TiChevronLeftOutline /></button>
                         <div>
-                            <Card data={data[index]} />
+                            <Card data={data[index]} onChangeCount={onChangeCount} />
                             <p>{index + 1}/{data.length}</p>
                         </div>
                         <button className='nav right' onClick={rightButtonClick}><TiChevronRightOutline /></button>
                     </div>
                 )
             }
+            <p>Изучено {count} слов</p>
         </React.Fragment>
     );
 }
