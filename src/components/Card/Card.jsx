@@ -10,12 +10,12 @@ export default function Card(props) {
     const [isPressed, setIsPressed] = useState(0);
     const ref = useRef();
 
-    useEffect(() => ref.current.focus());
+    useEffect(() => ref.current?.focus());
 
     function onButtonClick() {
         setIsPressed(!isPressed);
         
-        if (isPressed) {
+        if (!isPressed) {
             onChangeCount();
         }
         
