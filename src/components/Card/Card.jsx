@@ -1,25 +1,33 @@
 import React from 'react';
 import './Card.css';
 import '../../styles.css';
-import { useState, useEffect, useRef } from 'react';
+import {useEffect, useRef } from 'react';
 
 export default function Card(props) {
     const {english, transcription, russian, tags} = props.data;
-    const {onChangeCount} = props;
+    const {isPressed, onButtonClick} = props;
 
-    const [isPressed, setIsPressed] = useState(0);
+    
+    
+
     const ref = useRef();
 
     useEffect(() => ref.current?.focus());
 
-    function onButtonClick() {
-        setIsPressed(!isPressed);
+
+    // function onButtonClick() {
+    //     setIsPressed(!isPressed);
+
+    //     if (isRepeat) {
+    //         return;
+    //     }
         
-        if (!isPressed) {
-            onChangeCount();
-        }
+    //     if (!isPressed) {
+    //         onChangeCount();
+    //         setIsRepeat(!isRepeat);
+    //     }
         
-    }
+    // }
 
     return (
         <React.Fragment>

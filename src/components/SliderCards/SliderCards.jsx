@@ -12,6 +12,8 @@ export default function SliderCards(props) {
 
     const [index, setIndex] = useState(start);
     const [count, setCount] = useState(0);
+    const [isPressed, setIsPressed] = useState(0);
+    const [isRepeat, setIsRepeat] = useState(0);
 
     if (!data || data.length === 0) {
         return (<div>Не удалось загрузить слова. Попробуйте позже</div>
@@ -20,14 +22,39 @@ export default function SliderCards(props) {
 
     const leftButtonClick = () => {
         setIndex( newCount => newCount - 1);
+        if (isPressed) {
+            setIsPressed(!isPressed);
+        }
+        if (isRepeat) {
+            setIsRepeat(!isRepeat);
+        }
     }
 
     const rightButtonClick = () => {
         setIndex( newIndex => newIndex + 1);
+        if (isPressed) {
+            setIsPressed(!isPressed);
+        }
+        if (isRepeat) {
+            setIsRepeat(!isRepeat);
+        }
     }
 
     const onChangeCount = () => {
         setCount( count => count + 1);
+    }
+
+    function onMainButtonClick() {
+        setIsPressed(!isPressed);
+
+        if (isRepeat) {
+            return;
+        }
+
+        if (!isPressed) {
+            onChangeCount();
+            setIsRepeat(!isRepeat);
+        }
     }
 
     return (
@@ -37,7 +64,7 @@ export default function SliderCards(props) {
                     <div className='slider'>
                         <button className='nav left' onClick={leftButtonClick}><TiChevronLeftOutline /></button>
                         <div>
-                            <Card data={data[index]} onChangeCount={onChangeCount} />
+                            <Card data={data[index]} onButtonClick={onMainButtonClick} isPressed={isPressed} />
                             <p>{index + 1}/{data.length}</p>
                         </div>
                         <button className='nav right' onClick={rightButtonClick}><TiChevronRightOutline /></button>
