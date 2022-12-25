@@ -17,13 +17,14 @@ export default function Button(props) {
         }
     )
 
-    function onClick() {
+    function onClick(e) {
         onButtonClick(number);
+        e.preventDefault();
     }
 
     return (
         <React.Fragment>
-            <button className={buttonClasses} onClick={onClick}></button>
+            <button className={buttonClasses} onClick={onClick} disabled={false}></button>
         </React.Fragment>
     );
 }

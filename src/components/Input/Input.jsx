@@ -1,20 +1,35 @@
 import './Input.css';
 import '../../styles.css';
 import { useState } from 'react';
+import * as classnames from 'classnames';
 
 export default function Input(props) {
 
     const {value} = props;
 
     const [isChanged, setIsChanged] = useState(false);
+    const [isError, setIsError] = useState(false);
 
-    function onInputChange() {
+    function onInputChange(e) {
         setIsChanged(!isChanged);
+
+        if (e.target.name === "data-input" && e.target.value <= 0) {
+            setIsError(true);
+        } else {
+            setIsError(false);
+        }
     }
+
+    let inputClass = classnames(
+        'input',
+        {
+            'input_error': isError,
+        }
+    )
 
     return (
         <div>
-            <input className="input" type="text" defaultValue={value} onChange={onInputChange} />
+            <input name="data-input" className={inputClass} type="text" defaultValue={value} onChange={onInputChange} />
         </div>
     );
 }

@@ -8,3 +8,7 @@
 .input:hover {
     border: 1px solid darkgrey;
 }
+
+.input_error {
+    outline: 1px solid red;
+}

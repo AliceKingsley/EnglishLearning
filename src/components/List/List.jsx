@@ -11,18 +11,16 @@ export default function List(props) {
 
     return (
         <React.Fragment>
-            <table className='table'>
-                <thead className='thead'>
-                    <tr>
-                        <th>&#35;</th>
-                        <th>Английский</th>
-                        <th>Русский</th>
-                        <th>Транскрипция</th>
-                        <th>Тема</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
+            <div className='table'>
+                <div className='thead'>
+                        <div>&#35;</div>
+                        <div>Английский</div>
+                        <div>Русский</div>
+                        <div>Транскрипция</div>
+                        <div>Тема</div>
+                        <div></div>
+                </div>
+                <div>
                     {
                         data.map((elem, index) => {
                             return (
@@ -41,8 +39,8 @@ export default function List(props) {
                             )
                         })
                     }
-                </tbody>
-            </table>
+                </div>
+            </div>
         </React.Fragment>
     );
 }
