@@ -5,7 +5,7 @@ import * as classnames from 'classnames';
 
 export default function Input(props) {
 
-    const {value} = props;
+    const {value, onDataChange} = props;
 
     const [isChanged, setIsChanged] = useState(false);
     const [isError, setIsError] = useState(false);
@@ -15,6 +15,7 @@ export default function Input(props) {
 
         if (e.target.name === "data-input" && e.target.value <= 0) {
             setIsError(true);
+            onDataChange();
         } else {
             setIsError(false);
         }

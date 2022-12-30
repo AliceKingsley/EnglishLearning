@@ -3,7 +3,7 @@ import './Button.css';
 import * as classnames from 'classnames';
 
 export default function Button(props) {
-    const {isEditable, onButtonClick} = props;
+    const {isEditable, onButtonClick, disabled} = props;
 
     let buttonClasses = classnames(
         'button',
@@ -18,7 +18,7 @@ export default function Button(props) {
 
     return (
         <React.Fragment>
-            <button className={buttonClasses} onClick={onButtonClick} disabled={false}></button>
+            <button className={buttonClasses} onClick={onButtonClick} disabled={disabled}></button>
         </React.Fragment>
     );
 }

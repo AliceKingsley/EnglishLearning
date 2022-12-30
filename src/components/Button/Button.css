@@ -5,6 +5,10 @@
     margin-left: 20px;
 }
 
+.button:disabled {
+    background-color: rgb(35, 190, 138);
+}
+
 .button:hover {
     cursor: pointer;
 }
