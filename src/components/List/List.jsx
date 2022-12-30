@@ -35,6 +35,7 @@ export default function List(props) {
                                     onEditButtonClick={setIsEditable}
                                     onSaveButtonClick={setIsEditable}
                                     onCancelButtonClick={setIsEditable}
+                                    onDeleteButtonClick={setIsEditable}
                                 />
                             )
                         })
