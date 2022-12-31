@@ -18,6 +18,7 @@ export default function Input(props) {
             onDataChange();
         } else {
             setIsError(false);
+            onDataChange();
         }
     }
 

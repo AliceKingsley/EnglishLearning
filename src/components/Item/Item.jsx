@@ -20,13 +20,12 @@ export default function Item(props) {
     }
 
     const onCancel = (e) => {
-        e.preventDefault();
         onCancelButtonClick(number);
     }
 
     const onDataChange = () => {
         console.log('test_changeInput');
-        setIsDisabled(true);
+        setIsDisabled(!isDisabled);
     }
 
     return (
