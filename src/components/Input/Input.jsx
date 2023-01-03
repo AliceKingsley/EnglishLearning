@@ -5,20 +5,20 @@ import * as classnames from 'classnames';
 
 export default function Input(props) {
 
-    const {value, onDataChange} = props;
+    const {index, value, onDataChange} = props;
 
     const [isChanged, setIsChanged] = useState(false);
     const [isError, setIsError] = useState(false);
 
-    function onInputChange(e) {
+    function onInputChange(e, index) {
         setIsChanged(!isChanged);
 
         if (e.target.name === "data-input" && e.target.value <= 0) {
             setIsError(true);
-            onDataChange();
+            onDataChange(e, index, isError);
         } else {
             setIsError(false);
-            onDataChange();
+            onDataChange(e, index, isError);
         }
     }
 
@@ -31,7 +31,7 @@ export default function Input(props) {
 
     return (
         <div>
-            <input name="data-input" className={inputClass} type="text" defaultValue={value} onChange={onInputChange} />
+            <input name="data-input" className={inputClass} type="text" defaultValue={value} onChange={ (e) => {onInputChange(e, index)} } />
         </div>
     );
 }
