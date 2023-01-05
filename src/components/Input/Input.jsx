@@ -15,10 +15,10 @@ export default function Input(props) {
 
         if (e.target.name === "data-input" && e.target.value <= 0) {
             setIsError(true);
-            onDataChange(e, index, isError);
+            onDataChange(e, index, true);
         } else {
             setIsError(false);
-            onDataChange(e, index, isError);
+            onDataChange(e, index, false);
         }
     }
 

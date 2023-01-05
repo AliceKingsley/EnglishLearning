@@ -9,12 +9,12 @@ export default function Item(props) {
 
     const [isDisabled, setIsDisabled] = useState(false);
 
-    // const [objError, setObjError] = useState({
-    //     1: false,
-    //     2: false,
-    //     3: false,
-    //     4: false
-    // });
+    const [objError, setObjError] = useState({
+        1: false,
+        2: false,
+        3: false,
+        4: false
+    });
 
     const onSave = (e) => {
         onSaveButtonClick(number);
@@ -31,16 +31,39 @@ export default function Item(props) {
     }
 
     const onDataChange = (e, index, isError) => {
+        let copyObj = {...objError};
         console.log('test_changeInput');
         console.log(index);
-        console.log(!isError);
+        console.log(isError);
 
-        if (!isError) {
-            setIsDisabled(true);
+        if (isError) {
+            copyObj[index] = true;
+            console.log(copyObj);
+            setObjError(objError => ({
+                ...copyObj
+            }));
         } else {
-            setIsDisabled(false);
+            copyObj[index] = false;
+            console.log(copyObj);
+            setObjError(objError => ({
+                ...copyObj
+            }));
         }
-        // setIsDisabled(!isDisabled);
+
+        console.log(objError);
+
+        const arr = Object.values(copyObj);
+
+        for (const item of arr) {
+            console.log(item);
+            if (item) {
+                setIsDisabled(true);
+                return;
+            } else {
+                setIsDisabled(false);
+            }
+            
+        }
     }
 
     return (
