@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Item.css';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input';
+import Modal from '../Modal/Modal';
 
 export default function Item(props) {
 
@@ -34,6 +35,9 @@ export default function Item(props) {
 
     const [error, setError] = useState('');
 
+    const [isModal, setModal] = useState(false);
+    const onClose = () => setModal(false);
+
     const onSave = (e) => {
         console.log('test_save');
         const formData = new FormData();
@@ -51,6 +55,7 @@ export default function Item(props) {
 
         if (stock !== '') {
             console.log('данные не отправлены');
+            setModal(true);
             return;
         } else {
             console.log(`Данные формы для отправки: \n`);
@@ -117,7 +122,12 @@ export default function Item(props) {
                         }
                     </div>
                 </div>
-                <div>{error}</div>
+                <Modal
+                    visible={isModal}
+                    title='Ошибка'
+                    content={<p>{error}</p>}
+                    onClose={onClose}
+                />
             </form>
         </React.Fragment>
     );
