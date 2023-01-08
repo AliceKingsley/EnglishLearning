@@ -64,7 +64,7 @@ export default function Item(props) {
             }
         }
 
-        onSaveButtonClick(number);
+        onSaveButtonClick(false);
     }
 
     const onEdit = (e) => {
@@ -73,7 +73,8 @@ export default function Item(props) {
     }
 
     const onCancel = (e) => {
-        onCancelButtonClick(number);
+        e.preventDefault();
+        onCancelButtonClick(false);
     }
 
     const onDataChange = (e, index, isError, errorText) => {
