@@ -6,39 +6,57 @@ import Input from '../Input/Input';
 export default function Item(props) {
 
     const {number, english, russian, transcription, tags, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
-    let error = '';
 
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [objError, setObjError] = useState({
         english: {
+            value: english,
             isEmpty: false,
             withDigitError: ''
         },
         russian: {
+            value: russian,
             isEmpty: false,
             withDigitError: ''
         },
         transcription: {
+            value: transcription,
             isEmpty: false,
-            withDwithDigitErrorigit: ''
+            withDigitError: ''
         },
         tags: {
+            value: tags,
             isEmpty: false,
             withDigitError: ''
         },
     });
 
+    const [error, setError] = useState('');
+
     const onSave = (e) => {
         console.log('test_save');
+        const formData = new FormData();
+        e.preventDefault();
+        let stock = '';
         
         const arr = Object.entries(objError);
         for (const item of arr) {
             if (item[1].withDigitError !== '') {
-                error += `${item[0]}: ${item[1].withDigitError} `;
-                console.log(error);
+                stock += `${item[0]}: ${item[1].withDigitError} `;
             }
-            
+            formData.set(item[0], item[1].value);
+        }
+        setError(stock);
+
+        if (stock !== '') {
+            console.log('данные не отправлены');
+            return;
+        } else {
+            console.log(`Данные формы для отправки: \n`);
+            for (const key of formData.keys()) {
+                console.log(`${key}: ${formData.get(key)}`);
+            }
         }
 
         onSaveButtonClick(number);
@@ -60,6 +78,7 @@ export default function Item(props) {
         console.log(isError);
         console.log(errorText);
 
+        copyObj[index].value = e.target.value;
         copyObj[index].isEmpty = isError;
         copyObj[index].withDigitError = errorText;
         console.log(copyObj);
@@ -98,7 +117,7 @@ export default function Item(props) {
                         }
                     </div>
                 </div>
-                <span>{error}</span>
+                <div>{error}</div>
             </form>
         </React.Fragment>
     );
