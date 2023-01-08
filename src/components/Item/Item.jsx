@@ -6,19 +6,42 @@ import Input from '../Input/Input';
 export default function Item(props) {
 
     const {number, english, russian, transcription, tags, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
+    let error = '';
 
     const [isDisabled, setIsDisabled] = useState(false);
 
     const [objError, setObjError] = useState({
-        1: false,
-        2: false,
-        3: false,
-        4: false
+        english: {
+            isEmpty: false,
+            withDigitError: ''
+        },
+        russian: {
+            isEmpty: false,
+            withDigitError: ''
+        },
+        transcription: {
+            isEmpty: false,
+            withDwithDigitErrorigit: ''
+        },
+        tags: {
+            isEmpty: false,
+            withDigitError: ''
+        },
     });
 
     const onSave = (e) => {
-        onSaveButtonClick(number);
         console.log('test_save');
+        
+        const arr = Object.entries(objError);
+        for (const item of arr) {
+            if (item[1].withDigitError !== '') {
+                error += `${item[0]}: ${item[1].withDigitError} `;
+                console.log(error);
+            }
+            
+        }
+
+        onSaveButtonClick(number);
     }
 
     const onEdit = (e) => {
@@ -30,39 +53,30 @@ export default function Item(props) {
         onCancelButtonClick(number);
     }
 
-    const onDataChange = (e, index, isError) => {
+    const onDataChange = (e, index, isError, errorText) => {
         let copyObj = {...objError};
         console.log('test_changeInput');
         console.log(index);
         console.log(isError);
+        console.log(errorText);
 
-        if (isError) {
-            copyObj[index] = true;
-            console.log(copyObj);
-            setObjError(objError => ({
-                ...copyObj
-            }));
-        } else {
-            copyObj[index] = false;
-            console.log(copyObj);
-            setObjError(objError => ({
-                ...copyObj
-            }));
-        }
+        copyObj[index].isEmpty = isError;
+        copyObj[index].withDigitError = errorText;
+        console.log(copyObj);
+        setObjError(objError => ({
+            ...copyObj
+        }));
 
         console.log(objError);
 
         const arr = Object.values(copyObj);
 
         for (const item of arr) {
-            console.log(item);
-            if (item) {
+            if (item.isEmpty) {
                 setIsDisabled(true);
                 return;
-            } else {
-                setIsDisabled(false);
-            }
-            
+            } 
+            setIsDisabled(false);
         }
     }
 
@@ -71,10 +85,10 @@ export default function Item(props) {
             <form action='#'>
                 <div className='row'>
                     <div className='cell cell__number'>{number}</div>
-                    <div className='cell'>{isEditable ? <Input index={1} onDataChange={onDataChange} value={english} /> : <div>{english}</div>}</div>
-                    <div className='cell'>{isEditable ? <Input index={2} onDataChange={onDataChange} value={russian} /> : <div>{russian}</div>}</div>
-                    <div className='cell'>{isEditable ? <Input index={3} onDataChange={onDataChange} value={transcription} /> : <div>{transcription}</div>}</div>
-                    <div className='cell'>{isEditable ? <Input index={4} onDataChange={onDataChange} value={tags} /> : <div>{tags}</div>}</div>
+                    <div className='cell'>{isEditable ? <Input index={'english'} onDataChange={onDataChange} value={english} /> : <div>{english}</div>}</div>
+                    <div className='cell'>{isEditable ? <Input index={'russian'} onDataChange={onDataChange} value={russian} /> : <div>{russian}</div>}</div>
+                    <div className='cell'>{isEditable ? <Input index={'transcription'} onDataChange={onDataChange} value={transcription} /> : <div>{transcription}</div>}</div>
+                    <div className='cell'>{isEditable ? <Input index={'tags'} onDataChange={onDataChange} value={tags} /> : <div>{tags}</div>}</div>
                     <div className='cell'>
                         {
                             isEditable ? <Button isEditable={isEditable} text="Сохранить" onButtonClick={onSave} disabled={isDisabled ? true: false} /> : <Button isEditable={isEditable} text="Редактировать" onButtonClick={onEdit} />
@@ -84,6 +98,7 @@ export default function Item(props) {
                         }
                     </div>
                 </div>
+                <span>{error}</span>
             </form>
         </React.Fragment>
     );
