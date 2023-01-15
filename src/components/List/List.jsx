@@ -27,6 +27,7 @@ export default function List(props) {
                                 <Item 
                                     key={index} 
                                     number={index + 1} 
+                                    id={elem.id}
                                     english={elem.english} 
                                     russian={elem.russian} 
                                     transcription={elem.transcription} 

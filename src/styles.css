@@ -5,6 +5,7 @@
     --background-card: grey;
     --color-card: darkblue;
     --hover-background-card: lightgrey;
+    --border-color-blue: #5ddcff;
 
     --card-width: calc(var(--card-height) / 1.5);
     --card-height: 35vh;

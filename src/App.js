@@ -1,4 +1,3 @@
-import './App.css';
 import {
 	BrowserRouter as Router,
 	Routes,
@@ -11,19 +10,26 @@ import NoMatch from './pages/NoMatch';
 
 import Header from './components/Header/Header';
 
-function App() {
-	return (
-		<Router>
-			<div className="App">
-				<Header />
+import {MyContextProvider} from './context/WordsContext';
 
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/game" element={<Game />} />
-					<Route path="*" element={<NoMatch />} />
-				</Routes>
-			</div>
-		</Router>	
+import './App.css';
+
+function App() {
+
+	return (
+		<MyContextProvider>
+			<Router>
+				<div className="App">
+					<Header />
+
+					<Routes>
+						<Route path="/" element={<Home />} />
+						<Route path="/game" element={<Game />} />
+						<Route path="*" element={<NoMatch />} />
+					</Routes>
+				</div>
+			</Router>
+		</MyContextProvider>	
 );
 }
 

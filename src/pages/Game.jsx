@@ -1,7 +1,16 @@
-import SliderCards from '../components/SliderCards/SliderCards';
+import { useContext } from 'react';
 
-import dataArr from '../data';
+import { WordsContext } from '../context/WordsContext';
+import SliderCards from '../components/SliderCards/SliderCards';
+import Loader from '../components/Loader/Loader';
 
 export default function Game() {
-    return <SliderCards data={dataArr} startIndex={0} />;
+
+    const {context, setContext} = useContext(WordsContext);
+
+    if (!context) {
+        return <Loader />;
+    }
+
+    return <SliderCards data={context} />;
 }

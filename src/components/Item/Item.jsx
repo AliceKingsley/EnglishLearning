@@ -3,12 +3,16 @@ import './Item.css';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
+import PostServices from '../../Services/PostServices';
+import GetServices from '../../Services/GetServices';
 
 export default function Item(props) {
 
-    const {number, english, russian, transcription, tags, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
+    const {number, english, russian, transcription, tags, id, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
 
     const [isDisabled, setIsDisabled] = useState(false);
+
+    const [saved, setIsSaved] = useState({});
 
     const [objError, setObjError] = useState({
         english: {
@@ -38,10 +42,29 @@ export default function Item(props) {
     const [isModal, setModal] = useState(false);
     const onClose = () => setModal(false);
 
+    async function deleteWord(id, form) {
+        const data = await PostServices.deleteData(id, form);
+    }
+
+    async function changeWord(id, form) {
+        const data = await PostServices.changeData(id, form);
+    }
+
+    async function getWord(id) {
+        const data = await GetServices.getDataById(id);
+    }
+
     const onSave = (e) => {
-        console.log('test_save');
-        const formData = new FormData();
         e.preventDefault();
+        console.log('test_save');
+        let objData = {
+            id: '',
+            english: '',
+            russian: '',
+            transcription: '',
+            tags: ''
+        };
+        
         let stock = '';
         
         const arr = Object.entries(objError);
@@ -49,7 +72,7 @@ export default function Item(props) {
             if (item[1].withDigitError !== '') {
                 stock += `${item[0]}: ${item[1].withDigitError} `;
             }
-            formData.set(item[0], item[1].value);
+            objData[item[0]] = item[1].value;
         }
         setError(stock);
 
@@ -58,10 +81,10 @@ export default function Item(props) {
             setModal(true);
             return;
         } else {
-            console.log(`Данные формы для отправки: \n`);
-            for (const key of formData.keys()) {
-                console.log(`${key}: ${formData.get(key)}`);
-            }
+            objData.id = id;
+            console.log(JSON.stringify(objData));
+            changeWord(id, JSON.stringify(objData));
+            setIsSaved(getWord(id)); // какая-то проблема с ответом
         }
 
         onSaveButtonClick(false);
@@ -69,12 +92,30 @@ export default function Item(props) {
 
     const onEdit = (e) => {
         e.preventDefault();
+        console.log('test_change');
         onEditButtonClick(number);
     }
 
     const onCancel = (e) => {
         e.preventDefault();
         onCancelButtonClick(false);
+    }
+
+    const onDelete = (e) => {
+        e.preventDefault();
+        console.log('test_delete');
+        let objData = {
+            id: '',
+            english: '',
+            russian: '',
+            transcription: '',
+            tags: ''
+        };
+        console.log('id', id);
+        objData.id = id;
+        console.log(JSON.stringify(objData));
+        // deleteWord(id, JSON.stringify(objData));
+        onDeleteButtonClick(false);
     }
 
     const onDataChange = (e, index, isError, errorText) => {
@@ -119,7 +160,7 @@ export default function Item(props) {
                             isEditable ? <Button isEditable={isEditable} text="Сохранить" onButtonClick={onSave} disabled={isDisabled ? true: false} /> : <Button isEditable={isEditable} text="Редактировать" onButtonClick={onEdit} />
                         }
                         {
-                            isEditable ? <Button isEditable={isEditable} text="Отменить" onButtonClick={onCancel} /> : <Button isEditable={isEditable} text="Удалить" onButtonClick={onDeleteButtonClick} />
+                            isEditable ? <Button isEditable={isEditable} text="Отменить" onButtonClick={onCancel} /> : <Button isEditable={isEditable} text="Удалить" onButtonClick={onDelete} />
                         }
                     </div>
                 </div>

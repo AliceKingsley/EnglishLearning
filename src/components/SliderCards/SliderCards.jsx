@@ -7,8 +7,8 @@ import {TiChevronLeftOutline, TiChevronRightOutline} from 'https://cdn.skypack.d
 
 export default function SliderCards(props) {
 
-    const { data, startIndex } = props;
-    const start = startIndex || 0;
+    const { data } = props;
+    const start = 0;
 
     const [index, setIndex] = useState(start);
     const [count, setCount] = useState(0);
