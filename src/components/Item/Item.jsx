@@ -3,13 +3,16 @@ import './Item.css';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
-import PostServices from '../../Services/PostServices'
+import PostServices from '../../Services/PostServices';
+import GetServices from '../../Services/GetServices';
 
 export default function Item(props) {
 
     const {number, english, russian, transcription, tags, id, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
 
     const [isDisabled, setIsDisabled] = useState(false);
+
+    const [saved, setIsSaved] = useState({});
 
     const [objError, setObjError] = useState({
         english: {
@@ -39,17 +42,21 @@ export default function Item(props) {
     const [isModal, setModal] = useState(false);
     const onClose = () => setModal(false);
 
-    async function deleteWord(id) {
-        const data = await PostServices.deleteData(id);
+    async function deleteWord(id, form) {
+        const data = await PostServices.deleteData(id, form);
     }
 
-    async function changeWord(id) {
-        const data = await PostServices.changeData(id);
+    async function changeWord(id, form) {
+        const data = await PostServices.changeData(id, form);
+    }
+
+    async function getWord(id) {
+        const data = await GetServices.getDataById(id);
     }
 
     const onSave = (e) => {
+        e.preventDefault();
         console.log('test_save');
-        // const formData = new FormData();
         let objData = {
             id: '',
             english: '',
@@ -57,7 +64,7 @@ export default function Item(props) {
             transcription: '',
             tags: ''
         };
-        e.preventDefault();
+        
         let stock = '';
         
         const arr = Object.entries(objError);
@@ -65,10 +72,8 @@ export default function Item(props) {
             if (item[1].withDigitError !== '') {
                 stock += `${item[0]}: ${item[1].withDigitError} `;
             }
-            // formData.set(item[0], item[1].value);
             objData[item[0]] = item[1].value;
         }
-        console.log(objData);
         setError(stock);
 
         if (stock !== '') {
@@ -76,15 +81,10 @@ export default function Item(props) {
             setModal(true);
             return;
         } else {
-            console.log(`Данные формы для отправки: \n`);
-            // for (const key of formData.keys()) {
-            //     console.log(`${key}: ${formData.get(key)}`);
-            // }
-
-            console.log('id', id);
             objData.id = id;
             console.log(JSON.stringify(objData));
-            changeWord(id, objData);
+            changeWord(id, JSON.stringify(objData));
+            setIsSaved(getWord(id)); // какая-то проблема с ответом
         }
 
         onSaveButtonClick(false);
@@ -104,8 +104,17 @@ export default function Item(props) {
     const onDelete = (e) => {
         e.preventDefault();
         console.log('test_delete');
+        let objData = {
+            id: '',
+            english: '',
+            russian: '',
+            transcription: '',
+            tags: ''
+        };
         console.log('id', id);
-        deleteWord(id);
+        objData.id = id;
+        console.log(JSON.stringify(objData));
+        // deleteWord(id, JSON.stringify(objData));
         onDeleteButtonClick(false);
     }
 

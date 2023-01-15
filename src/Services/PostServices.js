@@ -1,15 +1,16 @@
 export default class PostServices {
 
-    static async deleteData(id) {
+    static async deleteData(id, form) {
         try {
             const response = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/delete`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'multipart/form-data;charset=utf-8'
+                    'Content-Type': 'application/json; charset=utf-8'
                 },
-                body: new FormData()
+                body: form
             });
-            const data = await response.formData();
+            const data = await response.status;
+            console.log(data);
             return data;
         } catch (error) {
             console.error(error);
@@ -17,6 +18,7 @@ export default class PostServices {
     }
 
     static async changeData(id, form) {
+        console.log(form);
         try {
             const response = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, {
                 method: 'POST',

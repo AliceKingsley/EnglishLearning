@@ -10,4 +10,16 @@ export default class GetServices {
             console.error(error);
         }
     }
+
+    static async getDataById(id) {
+        try {
+            const response = await fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}`);
+            const data = await response.json();
+
+            return data;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 }
