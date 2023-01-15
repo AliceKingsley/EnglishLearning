@@ -3,10 +3,11 @@ import './Item.css';
 import Button from '../Button/Button.jsx';
 import Input from '../Input/Input';
 import Modal from '../Modal/Modal';
+import PostServices from '../../Services/PostServices'
 
 export default function Item(props) {
 
-    const {number, english, russian, transcription, tags, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
+    const {number, english, russian, transcription, tags, id, isEditable, onSaveButtonClick, onEditButtonClick, onCancelButtonClick, onDeleteButtonClick} = props;
 
     const [isDisabled, setIsDisabled] = useState(false);
 
@@ -38,9 +39,24 @@ export default function Item(props) {
     const [isModal, setModal] = useState(false);
     const onClose = () => setModal(false);
 
+    async function deleteWord(id) {
+        const data = await PostServices.deleteData(id);
+    }
+
+    async function changeWord(id) {
+        const data = await PostServices.changeData(id);
+    }
+
     const onSave = (e) => {
         console.log('test_save');
-        const formData = new FormData();
+        // const formData = new FormData();
+        let objData = {
+            id: '',
+            english: '',
+            russian: '',
+            transcription: '',
+            tags: ''
+        };
         e.preventDefault();
         let stock = '';
         
@@ -49,8 +65,10 @@ export default function Item(props) {
             if (item[1].withDigitError !== '') {
                 stock += `${item[0]}: ${item[1].withDigitError} `;
             }
-            formData.set(item[0], item[1].value);
+            // formData.set(item[0], item[1].value);
+            objData[item[0]] = item[1].value;
         }
+        console.log(objData);
         setError(stock);
 
         if (stock !== '') {
@@ -59,9 +77,14 @@ export default function Item(props) {
             return;
         } else {
             console.log(`Данные формы для отправки: \n`);
-            for (const key of formData.keys()) {
-                console.log(`${key}: ${formData.get(key)}`);
-            }
+            // for (const key of formData.keys()) {
+            //     console.log(`${key}: ${formData.get(key)}`);
+            // }
+
+            console.log('id', id);
+            objData.id = id;
+            console.log(JSON.stringify(objData));
+            changeWord(id, objData);
         }
 
         onSaveButtonClick(false);
@@ -69,12 +92,21 @@ export default function Item(props) {
 
     const onEdit = (e) => {
         e.preventDefault();
+        console.log('test_change');
         onEditButtonClick(number);
     }
 
     const onCancel = (e) => {
         e.preventDefault();
         onCancelButtonClick(false);
+    }
+
+    const onDelete = (e) => {
+        e.preventDefault();
+        console.log('test_delete');
+        console.log('id', id);
+        deleteWord(id);
+        onDeleteButtonClick(false);
     }
 
     const onDataChange = (e, index, isError, errorText) => {
@@ -119,7 +151,7 @@ export default function Item(props) {
                             isEditable ? <Button isEditable={isEditable} text="Сохранить" onButtonClick={onSave} disabled={isDisabled ? true: false} /> : <Button isEditable={isEditable} text="Редактировать" onButtonClick={onEdit} />
                         }
                         {
-                            isEditable ? <Button isEditable={isEditable} text="Отменить" onButtonClick={onCancel} /> : <Button isEditable={isEditable} text="Удалить" onButtonClick={onDeleteButtonClick} />
+                            isEditable ? <Button isEditable={isEditable} text="Отменить" onButtonClick={onCancel} /> : <Button isEditable={isEditable} text="Удалить" onButtonClick={onDelete} />
                         }
                     </div>
                 </div>
